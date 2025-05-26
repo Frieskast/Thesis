@@ -1,0 +1,270 @@
+Visualization Manager instantiating with verbosity "warnings (3)"...
+Visualization Manager initialising...
+Registering graphics systems...
+
+You have successfully registered the following graphics systems.
+Registered graphics systems are:
+  ASCIITree (ATree)
+  DAWNFILE (DAWNFILE)
+  G4HepRepFile (HepRepFile)
+  RayTracer (RayTracer)
+  VRML2FILE (VRML2FILE)
+  gMocrenFile (gMocrenFile)
+  TOOLSSG_OFFSCREEN (TSG_OFFSCREEN, TSG_FILE)
+  OpenGLImmediateQt (OGLIQt, OGLI)
+  OpenGLStoredQt (OGLSQt, OGL, OGLS)
+  TOOLSSG_QT_GLES (TSG_QT_GLES, TSGQt, TSG)
+  TOOLSSG_QT_ZB (TSG_QT_ZB, TSGQtZB)
+You may choose a graphics system (driver) with a parameter of
+the command "/vis/open" or "/vis/sceneHandler/create",
+or you may omit the driver parameter and choose at run time:
+- by argument in the construction of G4VisExecutive;
+- by environment variable "G4VIS_DEFAULT_DRIVER";
+- by entry in "~/.g4session";
+- by build flags.
+- Note: This feature is not allowed in batch mode.
+For further information see "examples/basic/B1/exampleB1.cc"
+and "vis.mac".
+
+Registering model factories...
+
+You have successfully registered the following model factories.
+Registered model factories:
+  generic
+  drawByAttribute
+  drawByCharge
+  drawByOriginVolume
+  drawByParticleID
+  drawByEncounteredVolume
+
+Registered models:
+  None
+
+Registered filter factories:
+  attributeFilter
+  chargeFilter
+  originVolumeFilter
+  particleFilter
+  encounteredVolumeFilter
+
+Registered filters:
+  None
+
+You have successfully registered the following user vis actions.
+Run Duration User Vis Actions: none
+End of Event User Vis Actions: none
+End of Run User Vis Actions: none
+
+Some /vis commands (optionally) take a string to specify colour.
+"/vis/list" to see available colours.
+Default graphics system is: OGL (based on build flags).
+Default window size hint is: 600x600-0+0 (based on G4VisManager initialisation).
+Note: Parameters specified on the command line will override these defaults.
+      Use "vis/open" without parameters to get these defaults.
+Attributes available for modeling and filtering with
+  "/vis/modeling/trajectories/create/drawByAttribute" and
+  "/vis/filtering/trajectories/create/attributeFilter" commands:
+G4TrajectoriesModel:
+  Event ID (EventID): G4int
+  Run ID (RunID): G4int
+G4SmoothTrajectory:
+  Charge (Ch): unit: e+ (G4double)
+  Track ID (ID): G4int
+  Initial kinetic energy (IKE): G4BestUnit (G4double)
+  Initial momentum magnitude (IMag): G4BestUnit (G4double)
+  Initial momentum (IMom): G4BestUnit (G4ThreeVector)
+  No. of points (NTP): G4int
+  PDG Encoding (PDG): G4int
+  Parent ID (PID): G4int
+  Particle Name (PN): G4String
+G4SmoothTrajectoryPoint:
+  Auxiliary Point Position (Aux): G4BestUnit (G4ThreeVector)
+  Step Position (Pos): G4BestUnit (G4ThreeVector)
+WARNING: Trajectory storing has been requested.  This action may be
+  reversed with "/tracking/storeTrajectory 0".
+WARNING: The vis manager will keep up to 100 events.
+  This may use a lot of memory.
+  It may be changed with, e.g., "/vis/scene/endOfEventAction accumulate 10".
+Physics processes and models for protons:
+Process: Transportation
+Process Name Transportation : Type[Transportation] : SubType[91]
+Process: msc
+Process Name msc : Type[Electromagnetic] : SubType[10]
+Process: hIoni
+Process Name hIoni : Type[Electromagnetic] : SubType[2]
+Process: hBrems
+Process Name hBrems : Type[Electromagnetic] : SubType[3]
+Process: hPairProd
+Process Name hPairProd : Type[Electromagnetic] : SubType[4]
+Process: CoulombScat
+Process Name CoulombScat : Type[Electromagnetic] : SubType[1]
+Process: nuclearStopping
+Process Name nuclearStopping : Type[Electromagnetic] : SubType[8]
+Process: Cerenkov
+The Cerenkov effect simulates optical photons created by the
+passage of charged particles through matter. Materials need
+to have the property RINDEX (refractive index) defined.
+Process Name Cerenkov : Type[Electromagnetic] : SubType[21]
+Maximum beta change per step: 10Maximum photons per step: 100Track secondaries first: 1Stack photons: 1Verbose level: 0Process: Scintillation
+Scintillation simulates production of optical photons produced
+by a high energy particle traversing matter.
+Various material properties need to be defined.
+Process Name Scintillation : Type[Electromagnetic] : SubType[22]
+Track secondaries first: 1Finite rise time: 0Scintillation by particle type: 0Save track information: 0Stack photons: 1Verbose level: 0Process: protonInelastic
+Process Name protonInelastic : Type[Hadronic] : SubType[121]
+Process: hadElastic
+Process Name hadElastic : Type[Hadronic] : SubType[111]
+ Changing export format to "jpg"
+Matching commands :
+/run/beamOn 
+/run/breakAtBeginOfEvent 
+/run/breakAtEndOfEvent 
+
+### ===  Deexcitation model UAtomDeexcitation is activated for 1 region:
+          DefaultRegionForTheWorld  1  1  0
+### ===  Auger flag: 1
+### ===  Ignore cuts flag:   1
+G4VisManager: Using G4TrajectoryDrawByCharge as fallback trajectory model.
+See commands in /vis/modeling/trajectories/ for other options.
+G4WT0 > G4ParticleGun::geantino
+G4WT0 >  was defined in terms of KineticEnergy: 1GeV
+G4WT0 >  is now defined in terms Momentum: 0.0014GeV/c
+G4WT0 > 
+G4WT0 > *********************************************************************************************************
+G4WT0 > * G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+G4WT0 > *********************************************************************************************************
+G4WT0 > 
+G4WT0 > Step#    X(mm)    Y(mm)    Z(mm) KinE(MeV)  dE(MeV) StepLeng TrackLeng  NextVolume ProcName
+G4WT0 >     0        0        1      100   0.00104        0        0         0   physWorld initStep
+G4WT0 >     1        0        0        0   0.00104 9.76e-22      100       100 physGoldBlock Transportation
+G4WT0 >     2        0 -1.39e-09 -1.39e-07   0.00102 2.49e-05 1.43e-05       100 physGoldBlock msc
+G4WT0 >     3 8.25e-10 9.09e-16 -1.36e-07   0.00102 8.97e-08 2.94e-09       100   physWorld Transportation
+G4WT0 >     4      336      565    1e+03   0.00102 1.15e-20  1.2e+03   1.3e+03  OutOfWorld Transportation
+G4WT0 > G4ParticleGun::proton
+G4WT0 >  was defined in terms of KineticEnergy: 1.044472648572992e-06GeV
+G4WT0 >  is now defined in terms Momentum: 0.0014GeV/c
+G4WT0 > 
+G4WT0 > *********************************************************************************************************
+G4WT0 > * G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+G4WT0 > *********************************************************************************************************
+G4WT0 > 
+G4WT0 > Step#    X(mm)    Y(mm)    Z(mm) KinE(MeV)  dE(MeV) StepLeng TrackLeng  NextVolume ProcName
+G4WT0 >     0        0     1.87      100   0.00104        0        0         0   physWorld initStep
+G4WT0 >     1        0        0 -1.42e-14   0.00104 1.01e-21      100       100 physGoldBlock Transportation
+G4WT0 >     2        0 -2.6e-09 -1.39e-07  0.000998 4.68e-05 1.43e-05       100 physGoldBlock msc
+G4WT0 >     3 -1.27e-08 -1.41e-08 -1.2e-08         0 0.000998  1.4e-05       100 physGoldBlock msc
+G4WT0 >     4 -1.27e-08 -1.41e-08 -1.2e-08         0        0        0       100 physGoldBlock NoProcess
+G4WT0 > G4ParticleGun::proton
+G4WT0 >  was defined in terms of KineticEnergy: 1.044472648572992e-06GeV
+G4WT0 >  is now defined in terms Momentum: 0.0014GeV/c
+G4WT0 > 
+G4WT0 > *********************************************************************************************************
+G4WT0 > * G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+G4WT0 > *********************************************************************************************************
+G4WT0 > 
+G4WT0 > Step#    X(mm)    Y(mm)    Z(mm) KinE(MeV)  dE(MeV) StepLeng TrackLeng  NextVolume ProcName
+G4WT0 >     0        0     2.75      100   0.00104        0        0         0   physWorld initStep
+G4WT0 >     1        0 4.44e-16 1.42e-14   0.00104 9.42e-22      100       100 physGoldBlock Transportation
+G4WT0 >     2        0 -3.81e-09 -1.39e-07   0.00102 2.53e-05 1.43e-05       100 physGoldBlock msc
+G4WT0 >     3 3.92e-10 -2.26e-16 -1.41e-07   0.00102 1.29e-07 4.25e-09       100   physWorld Transportation
+G4WT0 >     4      103    1e+03     -482   0.00102 1.06e-20 1.11e+03  1.21e+03  OutOfWorld Transportation
+G4WT0 > G4ParticleGun::proton
+G4WT0 >  was defined in terms of KineticEnergy: 1.044472648572992e-06GeV
+G4WT0 >  is now defined in terms Momentum: 0.0014GeV/c
+G4WT0 > 
+G4WT0 > *********************************************************************************************************
+G4WT0 > * G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+G4WT0 > *********************************************************************************************************
+G4WT0 > 
+G4WT0 > Step#    X(mm)    Y(mm)    Z(mm) KinE(MeV)  dE(MeV) StepLeng TrackLeng  NextVolume ProcName
+G4WT0 >     0        0     3.62      100   0.00104        0        0         0   physWorld initStep
+G4WT0 >     1        0 -2.66e-15 -8.53e-14   0.00104 8.94e-22      100       100 physGoldBlock Transportation
+G4WT0 >     2        0 -5.02e-09 -1.39e-07   0.00101 3.71e-05 1.43e-05       100 physGoldBlock msc
+G4WT0 >     3 -7.65e-08 -1.07e-07 -1.13e-07         0  0.00101 1.41e-05       100 physGoldBlock msc
+G4WT0 >     4 -7.65e-08 -1.07e-07 -1.13e-07         0        0        0       100 physGoldBlock NoProcess
+G4WT0 > G4ParticleGun::proton
+G4WT0 >  was defined in terms of KineticEnergy: 1.044472648572992e-06GeV
+G4WT0 >  is now defined in terms Momentum: 0.0014GeV/c
+G4WT0 > 
+G4WT0 > *********************************************************************************************************
+G4WT0 > * G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+G4WT0 > *********************************************************************************************************
+G4WT0 > 
+G4WT0 > Step#    X(mm)    Y(mm)    Z(mm) KinE(MeV)  dE(MeV) StepLeng TrackLeng  NextVolume ProcName
+G4WT0 >     0        0     4.49      100   0.00104        0        0         0   physWorld initStep
+G4WT0 >     1        0 -1.78e-15 -4.26e-14   0.00104 9.78e-22      100       100 physGoldBlock Transportation
+G4WT0 >     2        0 -6.22e-09 -1.39e-07   0.00102 2.58e-05 1.43e-05       100 physGoldBlock msc
+G4WT0 >     3 7.66e-09 1.22e-15 -1.45e-07   0.00102 3.52e-07 1.15e-08       100   physWorld Transportation
+G4WT0 >     4    1e+03      813     -781   0.00102 1.46e-20 1.51e+03  1.61e+03  OutOfWorld Transportation
+G4WT0 > G4ParticleGun::proton
+G4WT0 >  was defined in terms of KineticEnergy: 1.044472648572992e-06GeV
+G4WT0 >  is now defined in terms Momentum: 0.0014GeV/c
+G4WT0 > 
+G4WT0 > *********************************************************************************************************
+G4WT0 > * G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+G4WT0 > *********************************************************************************************************
+G4WT0 > 
+G4WT0 > Step#    X(mm)    Y(mm)    Z(mm) KinE(MeV)  dE(MeV) StepLeng TrackLeng  NextVolume ProcName
+G4WT0 >     0        0     5.36      100   0.00104        0        0         0   physWorld initStep
+G4WT0 >     1        0 -2.66e-15 -5.68e-14   0.00104 9.31e-22      100       100 physGoldBlock Transportation
+G4WT0 >     2        0 -7.43e-09 -1.39e-07   0.00102 2.53e-05 1.43e-05       100 physGoldBlock msc
+G4WT0 >     3 1.63e-08 -1.75e-08 -2.7e-07  0.000995 2.45e-05 1.42e-05       100 physGoldBlock msc
+G4WT0 >     4  1.4e-07 -2.75e-08 -2.96e-07         0 0.000995  1.4e-05       100 physGoldBlock msc
+G4WT0 >     5  1.4e-07 -2.75e-08 -2.96e-07         0        0        0       100 physGoldBlock NoProcess
+G4WT0 > G4ParticleGun::proton
+G4WT0 >  was defined in terms of KineticEnergy: 1.044472648572992e-06GeV
+G4WT0 >  is now defined in terms Momentum: 0.0014GeV/c
+G4WT0 > 
+G4WT0 > *********************************************************************************************************
+G4WT0 > * G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+G4WT0 > *********************************************************************************************************
+G4WT0 > 
+G4WT0 > Step#    X(mm)    Y(mm)    Z(mm) KinE(MeV)  dE(MeV) StepLeng TrackLeng  NextVolume ProcName
+G4WT0 >     0        0     6.24      100   0.00104        0        0         0   physWorld initStep
+G4WT0 >     1        0 -2.66e-15 -2.84e-14   0.00104 9.18e-22      100       100 physGoldBlock Transportation
+G4WT0 >     2        0 -8.64e-09 -1.38e-07   0.00102 2.65e-05 1.43e-05       100 physGoldBlock msc
+G4WT0 >     3 -2.04e-09 3.53e-15 -1.53e-07   0.00102 5.15e-07 1.69e-08       100   physWorld Transportation
+G4WT0 >     4     -142      601   -1e+03   0.00102 1.13e-20 1.18e+03  1.28e+03  OutOfWorld Transportation
+G4WT0 > G4ParticleGun::proton
+G4WT0 >  was defined in terms of KineticEnergy: 1.044472648572992e-06GeV
+G4WT0 >  is now defined in terms Momentum: 0.0014GeV/c
+G4WT0 > 
+G4WT0 > *********************************************************************************************************
+G4WT0 > * G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+G4WT0 > *********************************************************************************************************
+G4WT0 > 
+G4WT0 > Step#    X(mm)    Y(mm)    Z(mm) KinE(MeV)  dE(MeV) StepLeng TrackLeng  NextVolume ProcName
+G4WT0 >     0        0     7.11      100   0.00104        0        0         0   physWorld initStep
+G4WT0 >     1        0 -1.78e-15 -1.42e-14   0.00104 1.01e-21      100       100 physGoldBlock Transportation
+G4WT0 >     2        0 -9.84e-09 -1.38e-07         0  0.00104 1.43e-05       100 physGoldBlock msc
+G4WT0 >     3        0 -9.84e-09 -1.38e-07         0        0        0       100 physGoldBlock NoProcess
+G4WT0 > G4ParticleGun::proton
+G4WT0 >  was defined in terms of KineticEnergy: 1.044472648572992e-06GeV
+G4WT0 >  is now defined in terms Momentum: 0.0014GeV/c
+G4WT0 > 
+G4WT0 > *********************************************************************************************************
+G4WT0 > * G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+G4WT0 > *********************************************************************************************************
+G4WT0 > 
+G4WT0 > Step#    X(mm)    Y(mm)    Z(mm) KinE(MeV)  dE(MeV) StepLeng TrackLeng  NextVolume ProcName
+G4WT0 >     0        0     7.98      100   0.00104        0        0         0   physWorld initStep
+G4WT0 >     1        0 -1.78e-15 -2.84e-14   0.00104 1.03e-21      100       100 physGoldBlock Transportation
+G4WT0 >     2        0 -1.1e-08 -1.38e-07         0  0.00104 1.43e-05       100 physGoldBlock msc
+G4WT0 >     3        0 -1.1e-08 -1.38e-07         0        0        0       100 physGoldBlock NoProcess
+G4WT0 > G4ParticleGun::proton
+G4WT0 >  was defined in terms of KineticEnergy: 1.044472648572992e-06GeV
+G4WT0 >  is now defined in terms Momentum: 0.0014GeV/c
+G4WT0 > 
+G4WT0 > *********************************************************************************************************
+G4WT0 > * G4Track Information:   Particle = proton,   Track ID = 1,   Parent ID = 0
+G4WT0 > *********************************************************************************************************
+G4WT0 > 
+G4WT0 > Step#    X(mm)    Y(mm)    Z(mm) KinE(MeV)  dE(MeV) StepLeng TrackLeng  NextVolume ProcName
+G4WT0 >     0        0     8.85      100   0.00104        0        0         0   physWorld initStep
+G4WT0 >     1        0 -3.55e-15 -4.26e-14   0.00104 1.03e-21      100       100 physGoldBlock Transportation
+G4WT0 >     2        0 -1.22e-08 -1.38e-07   0.00102 2.49e-05 1.43e-05       100 physGoldBlock msc
+G4WT0 >     3 -2.39e-09 -1.29e-16 -1.37e-07   0.00102 3.81e-07 1.25e-08       100   physWorld Transportation
+G4WT0 >     4     -195    1e+03     64.9   0.00102  9.5e-21 1.02e+03  1.12e+03  OutOfWorld Transportation
+10 events have been kept for refreshing and/or reviewing.
+  "/vis/reviewKeptEvents" to review one by one.
+  To see accumulated, "/vis/enable", then "/vis/viewer/flush" or "/vis/viewer/rebuild".
