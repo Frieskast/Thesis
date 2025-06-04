@@ -18,10 +18,16 @@ public:
 
     void AddExitCount(G4int n) { fExitCount += n; }
     G4int GetIncidentCount() const { return fIncidentCount; }
+    void IncrementExitCount() { fExitCount += 1; }
+    G4int GetExitCount() const { return fExitCount.GetValue(); }
 
 private:
     G4Accumulable<G4int> fExitCount;
     G4int fIncidentCount = 0; // Add this line
+    G4double incidentEnergy = 0;
+public:
+    void SetIncidentEnergy(G4double e) { incidentEnergy = e; }
+    G4double GetIncidentEnergy() const { return incidentEnergy; }
 };
 
 #endif

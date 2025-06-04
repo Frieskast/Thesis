@@ -18,7 +18,7 @@
 #include "G4GDMLParser.hh"
 
 // Constants for the gold block and detector
-const double goldBlockThickness = 5e-6 * mm;    // 500 Ångström
+const double goldBlockThickness = 5e-5 * mm;    // 500 Ångström
 const double nickelBlockThickness = 0.4 * mm;   // 0.4 mm
 const double blockWidth = 0.1 * m;
 const double blockHeight = 0.1 * m;
@@ -68,6 +68,7 @@ G4VPhysicalVolume* MyDetectorConstruction::Construct() {
     // Place the gold block
     G4Box* solidGoldBlock = new G4Box("solidGoldBlock", goldBlockThickness / 2, blockWidth / 2, blockHeight / 2);
     G4LogicalVolume* logicGoldBlock = new G4LogicalVolume(solidGoldBlock, gold, "logicGoldBlock");
+    logicGoldBlock->SetUserLimits(new G4UserLimits(0.001 * mm));
     new G4PVPlacement(
         0,
         G4ThreeVector((goldBlockThickness / 2), 0., 0.), // Gold at lower x

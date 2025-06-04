@@ -478,3 +478,99 @@ int main(void)
 }
 
 
+Determining if the function XOpenDisplay exists in the /usr/lib/x86_64-linux-gnu/libX11.so;/usr/lib/x86_64-linux-gnu/libXext.so passed with the following output:
+Change Dir: /home/frisoe/geant4/geant4-v11.3.1/examples/projects/thesis/build/CMakeFiles/CMakeScratch/TryCompile-HdDNoo
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_5ee3a/fast && gmake[1]: Entering directory '/home/frisoe/geant4/geant4-v11.3.1/examples/projects/thesis/build/CMakeFiles/CMakeScratch/TryCompile-HdDNoo'
+/usr/bin/gmake  -f CMakeFiles/cmTC_5ee3a.dir/build.make CMakeFiles/cmTC_5ee3a.dir/build
+gmake[2]: Entering directory '/home/frisoe/geant4/geant4-v11.3.1/examples/projects/thesis/build/CMakeFiles/CMakeScratch/TryCompile-HdDNoo'
+Building C object CMakeFiles/cmTC_5ee3a.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=XOpenDisplay -o CMakeFiles/cmTC_5ee3a.dir/CheckFunctionExists.c.o -c /home/frisoe/geant4/geant4-v11.3.1/examples/projects/thesis/build/CMakeFiles/CMakeScratch/TryCompile-HdDNoo/CheckFunctionExists.c
+Linking C executable cmTC_5ee3a
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_5ee3a.dir/link.txt --verbose=1
+/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=XOpenDisplay CMakeFiles/cmTC_5ee3a.dir/CheckFunctionExists.c.o -o cmTC_5ee3a  /usr/lib/x86_64-linux-gnu/libX11.so /usr/lib/x86_64-linux-gnu/libXext.so 
+gmake[2]: Leaving directory '/home/frisoe/geant4/geant4-v11.3.1/examples/projects/thesis/build/CMakeFiles/CMakeScratch/TryCompile-HdDNoo'
+gmake[1]: Leaving directory '/home/frisoe/geant4/geant4-v11.3.1/examples/projects/thesis/build/CMakeFiles/CMakeScratch/TryCompile-HdDNoo'
+
+
+
+Determining if the function gethostbyname exists passed with the following output:
+Change Dir: /home/frisoe/geant4/geant4-v11.3.1/examples/projects/thesis/build/CMakeFiles/CMakeScratch/TryCompile-U9wqcy
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_37ba7/fast && gmake[1]: Entering directory '/home/frisoe/geant4/geant4-v11.3.1/examples/projects/thesis/build/CMakeFiles/CMakeScratch/TryCompile-U9wqcy'
+/usr/bin/gmake  -f CMakeFiles/cmTC_37ba7.dir/build.make CMakeFiles/cmTC_37ba7.dir/build
+gmake[2]: Entering directory '/home/frisoe/geant4/geant4-v11.3.1/examples/projects/thesis/build/CMakeFiles/CMakeScratch/TryCompile-U9wqcy'
+Building C object CMakeFiles/cmTC_37ba7.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=gethostbyname -o CMakeFiles/cmTC_37ba7.dir/CheckFunctionExists.c.o -c /home/frisoe/geant4/geant4-v11.3.1/examples/projects/thesis/build/CMakeFiles/CMakeScratch/TryCompile-U9wqcy/CheckFunctionExists.c
+Linking C executable cmTC_37ba7
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_37ba7.dir/link.txt --verbose=1
+/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=gethostbyname CMakeFiles/cmTC_37ba7.dir/CheckFunctionExists.c.o -o cmTC_37ba7 
+gmake[2]: Leaving directory '/home/frisoe/geant4/geant4-v11.3.1/examples/projects/thesis/build/CMakeFiles/CMakeScratch/TryCompile-U9wqcy'
+gmake[1]: Leaving directory '/home/frisoe/geant4/geant4-v11.3.1/examples/projects/thesis/build/CMakeFiles/CMakeScratch/TryCompile-U9wqcy'
+
+
+
+Determining if the function connect exists passed with the following output:
+Change Dir: /home/frisoe/geant4/geant4-v11.3.1/examples/projects/thesis/build/CMakeFiles/CMakeScratch/TryCompile-UOWqA0
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_85b63/fast && gmake[1]: Entering directory '/home/frisoe/geant4/geant4-v11.3.1/examples/projects/thesis/build/CMakeFiles/CMakeScratch/TryCompile-UOWqA0'
+/usr/bin/gmake  -f CMakeFiles/cmTC_85b63.dir/build.make CMakeFiles/cmTC_85b63.dir/build
+gmake[2]: Entering directory '/home/frisoe/geant4/geant4-v11.3.1/examples/projects/thesis/build/CMakeFiles/CMakeScratch/TryCompile-UOWqA0'
+Building C object CMakeFiles/cmTC_85b63.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=connect -o CMakeFiles/cmTC_85b63.dir/CheckFunctionExists.c.o -c /home/frisoe/geant4/geant4-v11.3.1/examples/projects/thesis/build/CMakeFiles/CMakeScratch/TryCompile-UOWqA0/CheckFunctionExists.c
+Linking C executable cmTC_85b63
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_85b63.dir/link.txt --verbose=1
+/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=connect CMakeFiles/cmTC_85b63.dir/CheckFunctionExists.c.o -o cmTC_85b63 
+gmake[2]: Leaving directory '/home/frisoe/geant4/geant4-v11.3.1/examples/projects/thesis/build/CMakeFiles/CMakeScratch/TryCompile-UOWqA0'
+gmake[1]: Leaving directory '/home/frisoe/geant4/geant4-v11.3.1/examples/projects/thesis/build/CMakeFiles/CMakeScratch/TryCompile-UOWqA0'
+
+
+
+Determining if the function remove exists passed with the following output:
+Change Dir: /home/frisoe/geant4/geant4-v11.3.1/examples/projects/thesis/build/CMakeFiles/CMakeScratch/TryCompile-VSuIZp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_786dc/fast && gmake[1]: Entering directory '/home/frisoe/geant4/geant4-v11.3.1/examples/projects/thesis/build/CMakeFiles/CMakeScratch/TryCompile-VSuIZp'
+/usr/bin/gmake  -f CMakeFiles/cmTC_786dc.dir/build.make CMakeFiles/cmTC_786dc.dir/build
+gmake[2]: Entering directory '/home/frisoe/geant4/geant4-v11.3.1/examples/projects/thesis/build/CMakeFiles/CMakeScratch/TryCompile-VSuIZp'
+Building C object CMakeFiles/cmTC_786dc.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=remove -o CMakeFiles/cmTC_786dc.dir/CheckFunctionExists.c.o -c /home/frisoe/geant4/geant4-v11.3.1/examples/projects/thesis/build/CMakeFiles/CMakeScratch/TryCompile-VSuIZp/CheckFunctionExists.c
+Linking C executable cmTC_786dc
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_786dc.dir/link.txt --verbose=1
+/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=remove CMakeFiles/cmTC_786dc.dir/CheckFunctionExists.c.o -o cmTC_786dc 
+gmake[2]: Leaving directory '/home/frisoe/geant4/geant4-v11.3.1/examples/projects/thesis/build/CMakeFiles/CMakeScratch/TryCompile-VSuIZp'
+gmake[1]: Leaving directory '/home/frisoe/geant4/geant4-v11.3.1/examples/projects/thesis/build/CMakeFiles/CMakeScratch/TryCompile-VSuIZp'
+
+
+
+Determining if the function shmat exists passed with the following output:
+Change Dir: /home/frisoe/geant4/geant4-v11.3.1/examples/projects/thesis/build/CMakeFiles/CMakeScratch/TryCompile-wLwtBJ
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_6229f/fast && gmake[1]: Entering directory '/home/frisoe/geant4/geant4-v11.3.1/examples/projects/thesis/build/CMakeFiles/CMakeScratch/TryCompile-wLwtBJ'
+/usr/bin/gmake  -f CMakeFiles/cmTC_6229f.dir/build.make CMakeFiles/cmTC_6229f.dir/build
+gmake[2]: Entering directory '/home/frisoe/geant4/geant4-v11.3.1/examples/projects/thesis/build/CMakeFiles/CMakeScratch/TryCompile-wLwtBJ'
+Building C object CMakeFiles/cmTC_6229f.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=shmat -o CMakeFiles/cmTC_6229f.dir/CheckFunctionExists.c.o -c /home/frisoe/geant4/geant4-v11.3.1/examples/projects/thesis/build/CMakeFiles/CMakeScratch/TryCompile-wLwtBJ/CheckFunctionExists.c
+Linking C executable cmTC_6229f
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_6229f.dir/link.txt --verbose=1
+/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=shmat CMakeFiles/cmTC_6229f.dir/CheckFunctionExists.c.o -o cmTC_6229f 
+gmake[2]: Leaving directory '/home/frisoe/geant4/geant4-v11.3.1/examples/projects/thesis/build/CMakeFiles/CMakeScratch/TryCompile-wLwtBJ'
+gmake[1]: Leaving directory '/home/frisoe/geant4/geant4-v11.3.1/examples/projects/thesis/build/CMakeFiles/CMakeScratch/TryCompile-wLwtBJ'
+
+
+
+Determining if the function IceConnectionNumber exists in the ICE passed with the following output:
+Change Dir: /home/frisoe/geant4/geant4-v11.3.1/examples/projects/thesis/build/CMakeFiles/CMakeScratch/TryCompile-fksWvg
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_cea11/fast && gmake[1]: Entering directory '/home/frisoe/geant4/geant4-v11.3.1/examples/projects/thesis/build/CMakeFiles/CMakeScratch/TryCompile-fksWvg'
+/usr/bin/gmake  -f CMakeFiles/cmTC_cea11.dir/build.make CMakeFiles/cmTC_cea11.dir/build
+gmake[2]: Entering directory '/home/frisoe/geant4/geant4-v11.3.1/examples/projects/thesis/build/CMakeFiles/CMakeScratch/TryCompile-fksWvg'
+Building C object CMakeFiles/cmTC_cea11.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=IceConnectionNumber -o CMakeFiles/cmTC_cea11.dir/CheckFunctionExists.c.o -c /home/frisoe/geant4/geant4-v11.3.1/examples/projects/thesis/build/CMakeFiles/CMakeScratch/TryCompile-fksWvg/CheckFunctionExists.c
+Linking C executable cmTC_cea11
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_cea11.dir/link.txt --verbose=1
+/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=IceConnectionNumber CMakeFiles/cmTC_cea11.dir/CheckFunctionExists.c.o -o cmTC_cea11  -lICE 
+gmake[2]: Leaving directory '/home/frisoe/geant4/geant4-v11.3.1/examples/projects/thesis/build/CMakeFiles/CMakeScratch/TryCompile-fksWvg'
+gmake[1]: Leaving directory '/home/frisoe/geant4/geant4-v11.3.1/examples/projects/thesis/build/CMakeFiles/CMakeScratch/TryCompile-fksWvg'
+
+
+

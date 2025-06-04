@@ -5,22 +5,12 @@
 #include "G4ProductionCutsTable.hh" // Include for production cuts table
 #include "G4RegionStore.hh" // Include for region store
 #include "G4ProductionCuts.hh" // Include for production cuts
+#include "runaction.hh"
+#include "G4RunManager.hh"
 
 MyPrimaryGenerator::MyPrimaryGenerator()
 {
     fParticleGun = new G4ParticleGun(1); // Initialize particle gun with 1 particle per event
-
-    G4ProductionCutsTable::GetProductionCutsTable()->SetEnergyRange(0.1 * eV, 100 * GeV);
-
-    G4double lowEnergyCut = 0.1 * keV;
-    G4ProductionCuts* cuts = new G4ProductionCuts();
-    cuts->SetProductionCut(lowEnergyCut, "gamma");
-    cuts->SetProductionCut(lowEnergyCut, "e-");
-    cuts->SetProductionCut(lowEnergyCut, "e+");
-    cuts->SetProductionCut(lowEnergyCut, "proton");
-
-    G4Region* region = G4RegionStore::GetInstance()->GetRegion("DefaultRegionForTheWorld");
-    region->SetProductionCuts(cuts);
 
     G4ParticleTable* particleTable = G4ParticleTable::GetParticleTable();
 
@@ -77,23 +67,15 @@ MyPrimaryGenerator::~MyPrimaryGenerator()
 
 void MyPrimaryGenerator::GeneratePrimaries(G4Event* anEvent)
 {
-    
-
     // Generate the primary vertex
     fParticleGun->GeneratePrimaryVertex(anEvent);
 
-    // // Generate a random position on a disk around the x-axis
-    // G4double rMin = 2.0 * cm; // Minimum radius
-    // G4double rMax = 5.0 * cm; // Maximum radius
-    // G4double r = std::sqrt(G4UniformRand() * (rMax * rMax - rMin * rMin) + rMin * rMin); // Random radius
-    // G4double theta = 2.0 * M_PI * G4UniformRand(); // Random angle
-
-    // G4double yStart = r * std::cos(theta); // y-coordinate on the disk
-    // G4double zStart = r * std::sin(theta); // z-coordinate on the disk
-    // G4ThreeVector pos(0.2 * m, yStart, zStart); // Position on the disk
-    // fParticleGun->SetParticlePosition(pos);
-
-    // Set the momentum direction to point along the negative x-axis
-    // G4ThreeVector mom(-1.0, 0.0, 0.0); // Momentum direction along -x-axis
+    // Set incident energy in run action
+    auto* runAction = const_cast<MyRunAction*>(
+        static_cast<const MyRunAction*>(G4RunManager::GetRunManager()->GetUserRunAction())
+    );
+    if (runAction) {
+        runAction->SetIncidentEnergy(fParticleGun->GetParticleEnergy());
+    }
 }
 

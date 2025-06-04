@@ -607,9 +607,14 @@ CMakeFiles/thesis.dir/thesis.cc.o: \
  /home/frisoe/geant4/geant4-v11.3.1-install/include/Geant4/G4VRML2File.hh \
  /home/frisoe/geant4/geant4-v11.3.1-install/include/Geant4/G4GMocrenFile.hh \
  /home/frisoe/geant4/geant4-v11.3.1-install/include/Geant4/G4ToolsSGOffscreen.hh \
+ /home/frisoe/geant4/geant4-v11.3.1-install/include/Geant4/G4OpenGLImmediateX.hh \
+ /home/frisoe/geant4/geant4-v11.3.1-install/include/Geant4/G4OpenGLStoredX.hh \
  /home/frisoe/geant4/geant4-v11.3.1-install/include/Geant4/G4OpenGLImmediateQt.hh \
  /home/frisoe/geant4/geant4-v11.3.1-install/include/Geant4/G4OpenGLQt.hh \
  /home/frisoe/geant4/geant4-v11.3.1-install/include/Geant4/G4OpenGLStoredQt.hh \
+ /home/frisoe/geant4/geant4-v11.3.1-install/include/Geant4/G4RayTracerX.hh \
+ /home/frisoe/geant4/geant4-v11.3.1-install/include/Geant4/G4ToolsSGX11GLES.hh \
+ /home/frisoe/geant4/geant4-v11.3.1-install/include/Geant4/G4ToolsSGX11ZB.hh \
  /home/frisoe/geant4/geant4-v11.3.1-install/include/Geant4/G4ToolsSGQtGLES.hh \
  /home/frisoe/geant4/geant4-v11.3.1-install/include/Geant4/G4ToolsSGQtZB.hh \
  /home/frisoe/geant4/geant4-v11.3.1-install/include/Geant4/G4UImanager.hh \
