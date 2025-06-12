@@ -15,6 +15,17 @@
 #include "G4hBremsstrahlung.hh"
 #include "G4hIonisation.hh"
 #include "G4hMultipleScattering.hh"
+#include "G4UImessenger.hh"
+#include "G4UIcmdWithADoubleAndUnit.hh"
+
+class MyPhysicsMessenger : public G4UImessenger {
+public:
+    MyPhysicsMessenger();
+    ~MyPhysicsMessenger() override;
+    void SetNewValue(G4UIcommand*, G4String) override;
+
+    G4UIcmdWithADoubleAndUnit* thetaLimitCmd = nullptr;
+};
 
 class MyPhysicsList : public G4VModularPhysicsList
 {
@@ -26,6 +37,10 @@ public:
     void ConstructProcess() override; // Add this declaration
     void ConstructEM();       // Electromagnetic processes
     void ConstructGeneral();  // General processes
+    void SetMscThetaLimit(G4double val);
+private:
+    MyPhysicsMessenger* mscMessenger = nullptr;
+    void SetupMessenger();
 };
 
 #endif

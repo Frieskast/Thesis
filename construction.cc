@@ -18,8 +18,9 @@
 #include "G4GDMLParser.hh"
 
 // Constants for the gold block and detector
-const double goldBlockThickness = 5e-5 * mm;    // 500 Ångström
-const double nickelBlockThickness = 0.4 * mm;   // 0.4 mm
+const double goldBlockThickness = 0.0002 * mm;    // 200 nm
+const double epoxyThickness = 0.012 * mm;         // 12 um
+const double aluminiumThickness = 0.152 * mm;     // 0.152 mm
 const double blockWidth = 0.1 * m;
 const double blockHeight = 0.1 * m;
 const double detectorThickness = 0.01 * m;  // Thickness of the detector
@@ -47,10 +48,10 @@ G4VPhysicalVolume* MyDetectorConstruction::Construct() {
     G4Material* aluminium = nist->FindOrBuildMaterial("G4_Al");
 
     // Epoxy: C₂H₅O (approximate, density ~1.2 g/cm³)
-    G4Material* epoxy = new G4Material("Epoxy", 1.2 * g/cm3, 3);
-    epoxy->AddElement(nist->FindOrBuildElement("C"), 2);
-    epoxy->AddElement(nist->FindOrBuildElement("H"), 5);
-    epoxy->AddElement(nist->FindOrBuildElement("O"), 1);
+    G4Material* epoxy = new G4Material("Epoxy", 1.18 * g/cm3, 3);
+    epoxy->AddElement(nist->FindOrBuildElement("C"), 18);
+    epoxy->AddElement(nist->FindOrBuildElement("H"), 19);
+    epoxy->AddElement(nist->FindOrBuildElement("O"), 3);
 
     // Define world volume
     G4double xWorld = 1 * m;
@@ -68,10 +69,9 @@ G4VPhysicalVolume* MyDetectorConstruction::Construct() {
     // Place the gold block
     G4Box* solidGoldBlock = new G4Box("solidGoldBlock", goldBlockThickness / 2, blockWidth / 2, blockHeight / 2);
     G4LogicalVolume* logicGoldBlock = new G4LogicalVolume(solidGoldBlock, gold, "logicGoldBlock");
-    logicGoldBlock->SetUserLimits(new G4UserLimits(0.001 * mm));
     new G4PVPlacement(
         0,
-        G4ThreeVector((goldBlockThickness / 2), 0., 0.), // Gold at lower x
+        G4ThreeVector(goldBlockThickness / 2, 0., 0.), // Gold at lowest x
         logicGoldBlock,
         "physGoldBlock",
         logicWorld,
@@ -80,14 +80,28 @@ G4VPhysicalVolume* MyDetectorConstruction::Construct() {
         true
     );
 
-    // Place the nickel block directly behind the gold (higher x)
-    G4Box* solidNickelBlock = new G4Box("solidNickelBlock", nickelBlockThickness / 2, blockWidth / 2, blockHeight / 2);
-    G4LogicalVolume* logicNickelBlock = new G4LogicalVolume(solidNickelBlock, nickel, "logicNickelBlock");
+    // Place the epoxy block directly behind gold
+    G4Box* solidEpoxyBlock = new G4Box("solidEpoxyBlock", epoxyThickness / 2, blockWidth / 2, blockHeight / 2);
+    G4LogicalVolume* logicEpoxyBlock = new G4LogicalVolume(solidEpoxyBlock, epoxy, "logicEpoxyBlock");
     new G4PVPlacement(
         0,
-        G4ThreeVector(goldBlockThickness + (nickelBlockThickness / 2), 0., 0.), // Nickel right behind gold
-        logicNickelBlock,
-        "physNickelBlock",
+        G4ThreeVector(goldBlockThickness + (epoxyThickness / 2), 0., 0.), // Epoxy behind gold
+        logicEpoxyBlock,
+        "physEpoxyBlock",
+        logicWorld,
+        false,
+        0,
+        true
+    );
+
+    // Place the aluminium block directly behind epoxy
+    G4Box* solidAlBlock = new G4Box("solidAlBlock", aluminiumThickness / 2, blockWidth / 2, blockHeight / 2);
+    G4LogicalVolume* logicAlBlock = new G4LogicalVolume(solidAlBlock, aluminium, "logicAlBlock");
+    new G4PVPlacement(
+        0,
+        G4ThreeVector(goldBlockThickness + epoxyThickness + (aluminiumThickness / 2), 0., 0.), // Al behind epoxy
+        logicAlBlock,
+        "physAlBlock",
         logicWorld,
         false,
         0,

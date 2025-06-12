@@ -52,50 +52,33 @@ void MySteppingAction::UserSteppingAction(const G4Step* step) {
                 runAction->IncrementExitCount();
             }
 
-                        // Get the momentum and energy of the exiting particle
+            // Get the momentum and energy of the exiting particle
             G4ThreeVector momentum = track->GetMomentum();
             G4double energy = track->GetKineticEnergy();
 
             // Normalize the momentum vector to map onto the unit sphere
             G4ThreeVector unitVector = momentum.unit();
 
+            // For projections
+            G4double x = unitVector.x();
+            G4double y = unitVector.y();
+            G4double z = unitVector.z();
+
             // Elevation: angle from x-z plane (y=0), +90 = +y, 0 = x-z plane, -90 = -y
             G4double theta = std::acos(unitVector.x()); // [0, pi] radians
             G4double elevation_deg = (theta / deg) - 90.0; // [0, 90] for +y, [0, -90] for -y
 
             // Azimuth: angle in x-z plane from -z axis, increasing towards +x
-            G4double azimuth = std::atan2(unitVector.y(), -unitVector.z());
-            G4double azimuth_deg = azimuth / deg;
+            G4double azimuth = std::atan2(unitVector.y(), unitVector.z());
+            G4double azimuth_deg = (azimuth / deg) - 90.0;
 
-            // Print for debugging
-            // G4cout << "Unit vector: ("
+            // Debug print here, inside the block:
+            // G4cout << "unitVector: ("
             //        << unitVector.x() << ", "
             //        << unitVector.y() << ", "
-            //        << unitVector.z() << ")" << G4endl;
-            // G4cout << "Elevation (deg): " << elevation_deg
-            //        << ", Azimuth (deg): " << azimuth_deg << G4endl;
-
-            if (std::isnan(energy) || std::isnan(elevation_deg) || std::isnan(azimuth)) {
-                G4cerr << "Error: Invalid data for ntuple filling!" << G4endl;
-                return;
-            }
-
-            // Fill histograms
-            // analysisManager->FillH1(0, energy / keV); // Bin energy
-            analysisManager->FillH1(1, elevation_deg); // Bin elevation angle
-            analysisManager->FillH1(2, azimuth_deg);  // Bin azimuth angle
-
-            // Calculate X and Z components for the X-Z projection
-            G4double x = unitVector.x();
-            G4double y = unitVector.y();
-            G4double z = unitVector.z();
-
-            analysisManager->FillH2(0, x, z);
-            // Fill the 2D histogram for the X-Z projection
-            analysisManager->FillH2(1, y, z); // Histogram ID 0 for X-Z projection
-
-            // Fill 2D histogram: Azimuth vs Elevation (on the unit sphere)
-            analysisManager->FillH2(2, elevation_deg , azimuth_deg);
+            //        << unitVector.z() << ")  "
+            //        << "azimuth (rad): " << azimuth
+            //        << "  azimuth (deg): " << azimuth_deg << G4endl;
 
             // Calculate Exit Energy/Incident Energy ratio
             G4double incidentEnergy = 1.0 * keV; // fallback
@@ -105,25 +88,44 @@ void MySteppingAction::UserSteppingAction(const G4Step* step) {
             }
             G4double energyRatio = energy / incidentEnergy;
 
+            // Debug print here, inside the block:
+        //     G4cout << "energy: " << energy/keV << " keV, incidentEnergy: " << incidentEnergy/keV
+        //    << " keV, ratio: " << energyRatio << G4endl;
+            // Fill histograms
+            analysisManager->FillH1(0, elevation_deg);
+            analysisManager->FillH1(1, azimuth_deg);
+            analysisManager->FillH1(2, energyRatio);
+
+            // Fill H2 histograms
+            analysisManager->FillH2(0, x, z);                   // XZProjection
+            analysisManager->FillH2(1, y, z);                   // YZProjection
+            analysisManager->FillH2(2, elevation_deg, azimuth_deg); // AzimuthVsElevation
+
             // Get the current exit count and total incident count
-            G4int exitCount = 0;
-            G4int incidentCount = 0;
-            if (constRunAction) {
-                exitCount = constRunAction->GetExitCount();
-                incidentCount = constRunAction->GetIncidentCount();
-            }
-            G4double fraction = (incidentCount > 0) ? (G4double)exitCount / incidentCount : 0.0;
+            // G4int exitCount = 0;
+            // G4int incidentCount = 0;
+            // if (constRunAction) {
+            //     exitCount = constRunAction->GetExitCount();
+            //     incidentCount = constRunAction->GetIncidentCount();
+            // }
+            // G4double fraction = (incidentCount > 0) ? (G4double)exitCount / incidentCount : 0.0;
 
             // Fill 2D histogram: Fraction vs Exit Energy/Incident Energy
-            analysisManager->FillH1(3, energyRatio); // Bin energy
-            analysisManager->FillH2(3, energyRatio, fraction);
+            // analysisManager->FillH1(2, energyRatio); // Bin energy
+            // analysisManager->FillH2(3, energyRatio, fraction);
 
 
             // Fill ntuple
-            // analysisManager->FillNtupleDColumn(0, energy / keV);
-            // analysisManager->FillNtupleDColumn(1, theta / CLHEP::deg);
-            // analysisManager->FillNtupleDColumn(2, beta / CLHEP::deg);
-            // analysisManager->AddNtupleRow();
+            analysisManager->FillNtupleDColumn(0, energyRatio);
+            analysisManager->FillNtupleDColumn(1, energy / keV);
+            analysisManager->FillNtupleDColumn(2, elevation_deg);
+            analysisManager->FillNtupleDColumn(3, azimuth_deg);
+            analysisManager->FillNtupleDColumn(4, x);
+            analysisManager->FillNtupleDColumn(5, y);
+            analysisManager->FillNtupleDColumn(6, z);
+            analysisManager->AddNtupleRow();
         }
     }
+
+
 }

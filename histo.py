@@ -2,10 +2,11 @@ import uproot
 import numpy as np
 import matplotlib.pyplot as plt
 import re
+import os
 
 # --- Parameters ---
-SRIM_FILE = "SRIM/BACKSCAT_1000.txt"
-ROOT_FILE = "build/output1000.root"
+SRIM_FILE = "SRIM/BACKSCAT_100.txt"
+ROOT_FILE = "build/build/root/output_1deg_100keV.root"
 ROOT_HIST_NAME = "Elevation;1"  # <-- Use your Geant4 elevation histogram name here!
 N_INCIDENT = 50000
 NBINS = 40
@@ -70,12 +71,13 @@ print(f"Backscattered protons in SRIM data: {backscattered_count} ({backscattere
 srim_hist, bin_edges = np.histogram(energy_ratios, bins=NBINS, range=BIN_RANGE)
 srim_hist = srim_hist / N_INCIDENT
 
-# Histogram Geant4 data
+# Histogram Geant4 data from ntuple
 with uproot.open(ROOT_FILE) as f:
-    h_g4 = f["Energy;2"]
-    g4_vals = h_g4.values()
-    g4_edges = h_g4.axis().edges()
-    g4_hist = g4_vals / N_INCIDENT
+    tree = f["ExitData"]
+    energy_ratio_g4 = tree["EnergyRatio"].array()
+
+g4_hist, g4_edges = np.histogram(energy_ratio_g4, bins=NBINS, range=BIN_RANGE)
+g4_hist = g4_hist / N_INCIDENT
 
 # --- Elevation angle histogram (0-10 deg) ---
 ELEV_BINS = 40
@@ -85,19 +87,18 @@ ELEV_RANGE = (0, 10)
 srim_elev_hist, elev_bin_edges = np.histogram(srim_elevations, bins=ELEV_BINS, range=ELEV_RANGE)
 srim_elev_hist = srim_elev_hist / N_INCIDENT
 
-# Geant4 elevation histogram
+# Geant4 elevation histogram from ntuple
 with uproot.open(ROOT_FILE) as f:
-    h_g4_elev = f[ROOT_HIST_NAME]
-    g4_elev_vals = h_g4_elev.values()
-    g4_elev_edges = h_g4_elev.axis().edges()
-    # Restrict to 0-10 deg
-    elev_mask = (g4_elev_edges[:-1] >= 0) & (g4_elev_edges[1:] <= 10)
-    g4_elev_hist = g4_elev_vals[elev_mask] / N_INCIDENT
-    g4_elev_bin_centers = 0.5 * (g4_elev_edges[:-1][elev_mask] + g4_elev_edges[1:][elev_mask])
+    tree = f["ExitData"]
+    elevation_g4 = tree["Elevation"].array()
+
+g4_elev_hist, g4_elev_edges = np.histogram(elevation_g4, bins=ELEV_BINS, range=ELEV_RANGE)
+g4_elev_hist = g4_elev_hist / N_INCIDENT
+g4_elev_bin_centers = 0.5 * (g4_elev_edges[:-1] + g4_elev_edges[1:])
 
 # Print Geant4 backscattered count and fraction
-g4_backscattered_count = np.sum(g4_elev_vals[elev_mask])
-print(f"Backscattered protons in Geant4 data: {int(g4_backscattered_count)} ({g4_backscattered_count/N_INCIDENT:.2%})")
+g4_backscattered_count = np.sum(g4_elev_hist) * N_INCIDENT  # convert back to count
+print(f"Backscattered protons in Geant4 data: {int(g4_backscattered_count)} ({np.sum(g4_elev_hist):.2%})")
 
 # SRIM bin centers
 srim_elev_bin_centers = 0.5 * (elev_bin_edges[:-1] + elev_bin_edges[1:])
@@ -147,10 +148,10 @@ energy_str_file = incident_energy_str.replace(" ", "").replace(".", "p")
 angle_str_file = incident_angle_str.replace("°", "deg")
 
 # Save elevation angle plot
-plt.savefig(
-    f"/home/frisoe/geant4/geant4-v11.3.1/examples/projects/thesis/Plots/elevation_angle_{angle_str_file}_{energy_str_file}.png",
-    dpi=1000
-)
+# plt.savefig(
+#     f"/home/frisoe/geant4/geant4-v11.3.1/examples/projects/thesis/Plots/elevation_angle_{angle_str_file}_{energy_str_file}.png",
+#     dpi=1000
+# )
 plt.show()
 
 # --- (existing plot for energy ratios) ---
@@ -179,9 +180,118 @@ plt.grid(True)
 plt.tight_layout()
 
 # Save energy ratio plot
-plt.savefig(
-    f"/home/frisoe/geant4/geant4-v11.3.1/examples/projects/thesis/Plots/energy_ratio_{angle_str_file}_{energy_str_file}.png",
-    dpi=1000
-)
+# plt.savefig(
+#     f"/home/frisoe/geant4/geant4-v11.3.1/examples/projects/thesis/Plots/energy_ratio_{angle_str_file}_{energy_str_file}.png",
+#     dpi=1000
+# )
+plt.show()
+
+# --- XZ and YZ projection scatter plots from Geant4 ntuple ---
+
+with uproot.open(ROOT_FILE) as f:
+    tree = f["ExitData"]
+    x_g4 = tree["x"].array()
+    y_g4 = tree["y"].array()
+    z_g4 = tree["z"].array()
+
+# XZ projection
+plt.figure()
+plt.scatter(x_g4, z_g4, s=1, alpha=0.5, color="#009E73")
+plt.xlabel("x (unit vector)")
+plt.ylabel("z (unit vector)")
+plt.title("XZ Projection of Exit Directions (Geant4)")
+plt.xlim(0.0, 1.2)
+plt.ylim(-1.5, 1.5)
+plt.grid(True)
+plt.tight_layout()
+# plt.show()
+
+# YZ projection
+plt.figure()
+plt.scatter(y_g4, z_g4, s=1, alpha=0.5, color="#E69F00")
+plt.xlabel("y (unit vector)")
+plt.ylabel("z (unit vector)")
+plt.title("YZ Projection of Exit Directions (Geant4)")
+plt.xlim(0.0, 1.2)
+plt.ylim(-1.5, 1.5)
+plt.grid(True)
+plt.tight_layout()
+# plt.show()
+
+# --- Scattering efficiency calculation ---
+
+# Parameters
+N_INCIDENT = 50000  # Update if needed
+angle_range = range(1, 11)  # 1deg to 10deg
+energy_range = range(100, 1001, 100)  # 200 to 1000 keV
+
+eff_matrix = np.full((len(energy_range), len(angle_range)), np.nan)  # shape: (energies, angles)
+
+for i, energy in enumerate(energy_range):
+    for j, angle in enumerate(angle_range):
+        root_file = f"build/build/root/output_{angle}deg_{energy}keV.root"
+        if not os.path.exists(root_file):
+            continue
+        with uproot.open(root_file) as f:
+            tree = f["ExitData"]
+            n_scattered = tree.num_entries
+            eff_matrix[i, j] = 100 * n_scattered / N_INCIDENT
+
+# Plot one figure per energy
+for i, energy in enumerate(energy_range):
+    plt.figure()
+    plt.plot(angle_range, eff_matrix[i, :], marker='o')
+    plt.xlabel("Incident Angle (deg)")
+    plt.ylabel("Scattering Efficiency (%)")
+    plt.title(f"Scattering Efficiency vs Angle\nEnergy = {energy} keV")
+    plt.ylim(0, np.nanmax(eff_matrix) * 1.1)
+    plt.grid(True)
+    plt.tight_layout()
+    plt.show()
+
+# Plot all energies together
+plt.figure()
+for i, energy in enumerate(energy_range):
+    plt.plot(angle_range, eff_matrix[i, :], marker='o', label=f"{energy} keV")
+plt.xlabel("Incident Angle (deg)")
+plt.ylabel("Scattering Efficiency (%)")
+plt.title("Scattering Efficiency vs Angle for All Energies")
+plt.legend(title="Energy")
+plt.ylim(0, np.nanmax(eff_matrix) * 1.1)
+plt.grid(True)
+plt.tight_layout()
+plt.show()
+
+# --- SRIM scattering efficiency calculation and plot ---
+
+srim_N_INCIDENT = 5000
+angle_range = range(1, 11)  # 1deg to 10deg
+energy = 200  # Only 200 keV
+
+srim_eff = np.full(len(angle_range), np.nan)
+
+for j, angle in enumerate(angle_range):
+    srim_file = f"SRIM/BACKSCAT_{energy}_{angle}deg.txt"
+    if not os.path.exists(srim_file):
+        continue
+    n_backscattered = 0
+    with open(srim_file, "r") as f:
+        for line in f:
+            line = line.strip()
+            if not line or not line.startswith("B"):
+                continue
+            n_backscattered += 1
+    srim_eff[j] = 100 * n_backscattered / srim_N_INCIDENT
+
+# Plot SRIM efficiency vs angle for 200 keV
+plt.figure()
+plt.plot(angle_range, srim_eff, marker='o', color='tab:orange', label="SRIM 200 keV")
+plt.xlabel("Incident Angle (deg)")
+plt.ylabel("SRIM Scattering Efficiency (%)")
+plt.title("SRIM Scattering Efficiency vs Angle (200 keV)")
+plt.ylim(0, np.nanmax(srim_eff) * 1.1)
+plt.grid(True)
+plt.tight_layout()
+plt.legend()
 plt.show()
 

@@ -7,6 +7,7 @@
 #include "G4ProductionCuts.hh" // Include for production cuts
 #include "runaction.hh"
 #include "G4RunManager.hh"
+#include "generatorMessenger.hh"
 
 MyPrimaryGenerator::MyPrimaryGenerator()
 {
@@ -34,39 +35,55 @@ MyPrimaryGenerator::MyPrimaryGenerator()
     // G4ThreeVector mom(-0.1 * m, -yStart, 0.0); // Momentum direction toward the origin
    
 
-    // Set the particle's starting position
-    G4double angle = 1 * deg;
+    // // Set the particle's starting position
+    // G4double angle = fIncidentAngle;
 
-    G4double yStart = -0.1 * m;
+    // G4double yStart = -0.1 * m;
 
-    G4double xStart = yStart * std::tan(angle);
+    // G4double xStart = yStart * std::tan(angle);
     
-    G4ThreeVector pos(xStart, yStart, 0.0*m);
-    fParticleGun->SetParticlePosition(pos);
+    // G4ThreeVector pos(xStart, yStart, 0.0*m);
+    // fParticleGun->SetParticlePosition(pos);
 
-    // Set the momentum direction for an incident angle of 1 degree
-    G4double x = -std::cos(angle); // x-component of momentum
-    G4double y = -std::sin(angle); // y-component of momentum (negative for downward direction)
-    G4double z = 0.0; // z-component of momentum (no deviation in z-axis)
+    // // Set the momentum direction for an incident angle of 1 degree
+    // G4double x = -std::cos(angle); // x-component of momentum
+    // G4double y = -std::sin(angle); // y-component of momentum (negative for downward direction)
+    // G4double z = 0.0; // z-component of momentum (no deviation in z-axis)
 
-    G4ThreeVector mom(-xStart, -yStart, 0.0*m);
-    mom = mom.unit(); // Normalize the momentum vector
-    fParticleGun->SetParticleMomentumDirection(mom);
+    // G4ThreeVector mom(-xStart, -yStart, 0.0*m);
+    // mom = mom.unit(); // Normalize the momentum vector
+    // fParticleGun->SetParticleMomentumDirection(mom);
 
     // Set the particle energy
     fParticleGun->SetParticleEnergy(1000 * keV); // Example energy
 
     // Set the particle definition
     fParticleGun->SetParticleDefinition(particle);
+
+    fMessenger = new GeneratorMessenger(this);
 }
 
 MyPrimaryGenerator::~MyPrimaryGenerator()
 {
+    delete fMessenger;
     delete fParticleGun;
 }
 
 void MyPrimaryGenerator::GeneratePrimaries(G4Event* anEvent)
 {
+    // Set the particle's starting position and direction based on current fIncidentAngle
+    G4double angle = fIncidentAngle;
+    G4double yStart = -0.1 * m;
+    G4double xStart = yStart * std::tan(angle);
+    G4ThreeVector pos(xStart, yStart, 0.0*m);
+    fParticleGun->SetParticlePosition(pos);
+
+    G4ThreeVector mom(-xStart, -yStart, 0.0*m);
+    mom = mom.unit();
+    fParticleGun->SetParticleMomentumDirection(mom);
+
+    // The energy is set by macro, so no need to set it here unless you want to override
+
     // Generate the primary vertex
     fParticleGun->GeneratePrimaryVertex(anEvent);
 
@@ -75,6 +92,8 @@ void MyPrimaryGenerator::GeneratePrimaries(G4Event* anEvent)
         static_cast<const MyRunAction*>(G4RunManager::GetRunManager()->GetUserRunAction())
     );
     if (runAction) {
+        runAction->SetIncidentAngle(fIncidentAngle / CLHEP::deg);
+        runAction->SetEnergy(fParticleGun->GetParticleEnergy() / CLHEP::keV);
         runAction->SetIncidentEnergy(fParticleGun->GetParticleEnergy());
     }
 }

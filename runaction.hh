@@ -20,14 +20,20 @@ public:
     G4int GetIncidentCount() const { return fIncidentCount; }
     void IncrementExitCount() { fExitCount += 1; }
     G4int GetExitCount() const { return fExitCount.GetValue(); }
+    G4String GenerateFileName();
 
 private:
     G4Accumulable<G4int> fExitCount;
     G4int fIncidentCount = 0; // Add this line
-    G4double incidentEnergy = 0;
+    G4double fIncidentEnergy = 0;
+    double fIncidentAngleDeg = 0;
+    double fEnergyKeV = 0;
+    std::string fPendingFileName;
 public:
-    void SetIncidentEnergy(G4double e) { incidentEnergy = e; }
-    G4double GetIncidentEnergy() const { return incidentEnergy; }
+    void SetIncidentEnergy(G4double e) { fIncidentEnergy = e; }
+    G4double GetIncidentEnergy() const { return fIncidentEnergy; }
+    void SetIncidentAngle(double angleDeg) { fIncidentAngleDeg = angleDeg; }
+    void SetEnergy(double energyKeV) { fEnergyKeV = energyKeV; }
 };
 
 #endif

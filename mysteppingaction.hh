@@ -12,6 +12,10 @@ public:
 
 private:
     G4Accumulable<G4int> fExitCount;
+    int fIonizationCount = 0; // Add this line
+public:
+    int GetIonizationCount() const { return fIonizationCount; } // Optional getter
+    void ResetIonizationCount() { fIonizationCount = 0; }       // Optional reset
 };
 
 #endif
