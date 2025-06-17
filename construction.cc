@@ -69,6 +69,7 @@ G4VPhysicalVolume* MyDetectorConstruction::Construct() {
     // Place the gold block
     G4Box* solidGoldBlock = new G4Box("solidGoldBlock", goldBlockThickness / 2, blockWidth / 2, blockHeight / 2);
     G4LogicalVolume* logicGoldBlock = new G4LogicalVolume(solidGoldBlock, gold, "logicGoldBlock");
+    logicGoldBlock->SetUserLimits(new G4UserLimits(0.001 * mm));
     new G4PVPlacement(
         0,
         G4ThreeVector(goldBlockThickness / 2, 0., 0.), // Gold at lowest x
@@ -110,13 +111,13 @@ G4VPhysicalVolume* MyDetectorConstruction::Construct() {
 
     // // Load the GDML file
     // G4GDMLParser parser;
-    // parser.Read("/home/frisoe/geant4/geant4-v11.3.1/examples/Projects/thesis/gdml/cocomirror.gdml"); // Path to the GDML file
+    // parser.Read("/home/frisoe/geant4/geant4-v11.3.1/examples/projects/thesis/gdml/cocomirror.gdml"); // Path to the GDML file
 
     // // Place the GDML geometry into the world volume
     // G4LogicalVolume* gdmlLogic = parser.GetWorldVolume()->GetLogicalVolume();
     // new G4PVPlacement(0, G4ThreeVector(0., 0., 0.), gdmlLogic, "gdmlPhys", logicWorld, false, 0, true);
 
-    // Place the detector
+    // // Place the detector
     // G4RotationMatrix* rotation = new G4RotationMatrix();
     // rotation->rotateY(90.0 * deg); // Rotate the detector 90 degrees around the y-axis
 

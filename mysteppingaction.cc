@@ -39,7 +39,8 @@ void MySteppingAction::UserSteppingAction(const G4Step* step) {
 
         // Only count if truly exiting the gold block and NOT entering nickel
         if (preVolume == "physGoldBlock" && postVolume != "physGoldBlock" &&
-            postVolume != "physNickelBlock" &&
+            postVolume != "physEpoxyBlock" &&
+            postVolume != "physAlBlock" &&
             postStepPoint->GetStepStatus() == fGeomBoundary &&
             track->GetTrackStatus() == fAlive) {
             // G4cout << "Proton exited gold block!" << G4endl;
